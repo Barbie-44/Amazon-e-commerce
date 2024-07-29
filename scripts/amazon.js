@@ -1,3 +1,5 @@
+import {cart} from '../data/cart.js';
+
 let productsHTML = '';
 
 products.forEach((product) => {
@@ -17,7 +19,7 @@ products.forEach((product) => {
             src="images/ratings/rating-${product.rating.stars*10}.png">
         <div class="product-rating-count link-primary">
             ${product.rating.count}
-        </div>
+        </div> 
         </div>
 
         <div class="product-price">
