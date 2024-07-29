@@ -25,7 +25,7 @@ products.forEach((product) => {
         </div>
 
         <div class="product-quantity-container">
-        <select>
+        <select class="js-quantity-selector-${product.id}">
             <option selected value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
@@ -41,7 +41,7 @@ products.forEach((product) => {
 
         <div class="product-spacer"></div>
 
-        <div class="added-to-cart">
+        <div class="added-to-cart js-added-to-cart-${product.id}">
         <img src="images/icons/checkmark.png">
         Added
         </div>
@@ -62,6 +62,7 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         const productId = button.dataset.productId;
 
         let matchingItem;
+        let selectElement = document.querySelector(`.js-quantity-selector-${productId}`);
 
         cart.forEach((item) => {
             if (productId === item.productId){
@@ -70,12 +71,13 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
         });
 
         if (matchingItem) {
-            matchingItem.quantity += 1;
+            matchingItem.quantity += Number(selectElement.value);
+            
         }
         else{
             cart.push({
             productId: productId,
-            quantity: 1
+            quantity: Number(selectElement.value)
         });
         }
 
@@ -86,5 +88,19 @@ document.querySelectorAll('.js-add-to-cart').forEach((button) => {
             cartQuantity += item.quantity;
         });
         document.querySelector('.js-cart-quantity').innerHTML = cartQuantity;
+        document.querySelector(`.js-added-to-cart-${productId}`).classList.add('added-to-cart-visible');
+        
+        
+        const timeouts = {}
+
+        if (timeouts[productId]) {
+            clearTimeout(timeouts[productId]);
+        }
+        timeoutId = setTimeout(() => {
+            document.querySelector(`.js-added-to-cart-${productId}`).classList.remove('added-to-cart-visible');
+        }, 2000);
+
+        timeouts[productId] = timeoutId;
     })
+    
 });

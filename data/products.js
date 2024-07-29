@@ -656,5 +656,20 @@ const products = [
       "apparel",
       "mens"
     ]
+  },
+  {
+    id: 'id-1',
+    image: 'images/products/backpack.jpg',
+    name: 'Pretty backpack',
+    rating: {
+      stars: 3,
+      count: 4333
+    },
+    priceCents: 340000,
+    keywords: [
+      'school',
+      'office',
+      'student'
+    ]
   }
 ];
